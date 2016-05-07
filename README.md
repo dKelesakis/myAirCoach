@@ -1,2 +1,2 @@
 # myAirCoach
-myAirCoach application
+A Qt Application for myAirCoach Project
