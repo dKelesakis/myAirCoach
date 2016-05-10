@@ -38,65 +38,13 @@
 **
 ****************************************************************************/
 
-#include "mainwidget.h"
-#include <QApplication>
-#include <QQuickView>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include <QApplication>
-#include "receiver.h"
-#include "configdialog.h"
+import QtQuick 2.0
 
-int main(int argc, char *argv[])
-{
-    Q_INIT_RESOURCE(spectrum);
-
-    QApplication app(argc, argv);
-   /* QQmlApplicationEngine engine;
-
-    Receiver receiver;
-
-    QQmlContext* ctx = engine.rootContext();
-    ctx->setContextProperty("receiver", &receiver);
-    engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
-
-    receiver.sendToQml(43);
-    */
-    app.setApplicationDisplayName("myAirCoach");
-    ConfigDialog dialog;
-    return dialog.exec();
+ListModel {
+    id: stocks
+    ListElement {stockId: "Personal Profile";}
+    ListElement {stockId: "Personal e-Doctor";}
+    ListElement {stockId: "Microphone Breath Monitoring";}
+    ListElement {stockId: "Sensors Breath Monitoring";}
+    ListElement {stockId: "Help";}
 }
-/*
-int main(int argc, char *argv[])
-{
-    QApplication app(argc, argv);
-    app.setApplicationName("Qt Multimedia spectrum analyzer");
-
-    //    MainWidget w;
-    //    w.setMinimumSize(QSize(900,700));
-
-    //    w.show();
-
-    QWidget *mainView = new QWidget();
-    MainWidget *v = new MainWidget();
-    v->setMinimumSize(QSize(600,700));
-    QQuickView *visualArea = new QQuickView();
-    QVBoxLayout *vlayout = new QVBoxLayout();
-    QHBoxLayout *hlayout = new QHBoxLayout();
-    QWidget *visualAreaContainer = QWidget::createWindowContainer(visualArea);
-    visualAreaContainer->setMinimumSize(QSize(100,100));
-    visualArea->setSource(QUrl("qrc:/qml/main.qml"));
-    hlayout->addWidget(visualAreaContainer);
-    hlayout->addWidget(v);
-   // vlayout->addWidget(v);
-    vlayout->addLayout(hlayout);
-    //layout->addWidget(visualAreaContainer);
-    mainView->setLayout(vlayout);
-    mainView->show();
-
-    return app.exec();
-}
-*/

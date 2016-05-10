@@ -7,5 +7,6 @@
         <file>qml/main.qml</file>
         <file>images/query.png</file>
         <file>images/update.png</file>
+        <file>qml/Button.qml</file>
     </qresource>
 </RCC>

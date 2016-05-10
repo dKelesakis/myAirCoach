@@ -14,6 +14,8 @@ class ConfigDialog : public QDialog
 {
     Q_OBJECT
 
+
+
 public:
     ConfigDialog();
 
@@ -28,4 +30,5 @@ private:
 };
 
 #endif
+
 

@@ -14,6 +14,7 @@ ConfigDialog::ConfigDialog()
     contentsWidget->setSpacing(12);
 
     pagesWidget = new QStackedWidget;              //ta widget deksia
+    pagesWidget->addWidget(new MainMenuPage);
     pagesWidget->addWidget(new PersonalProfilePage);
     pagesWidget->addWidget(new PersonalDoctorPage);
     pagesWidget->addWidget(new MicrophoneBreathMonitoringPage);
@@ -28,18 +29,29 @@ ConfigDialog::ConfigDialog()
     connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
 
     QHBoxLayout *horizontalLayout = new QHBoxLayout;
-    horizontalLayout->addWidget(contentsWidget);
+    //horizontalLayout->addWidget(contentsWidget);
     horizontalLayout->addWidget(pagesWidget, 1);
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addStretch(1);
     buttonsLayout->addWidget(closeButton);
 
+    QComboBox *pageComboBox = new QComboBox;
+        pageComboBox->addItem(tr("Page 1"));
+        pageComboBox->addItem(tr("Page 2"));
+        pageComboBox->addItem(tr("Page 3"));
+        pageComboBox->addItem(tr("Page 4"));
+        pageComboBox->addItem(tr("Page 5"));
+        pageComboBox->addItem(tr("Page 6"));
+        connect(pageComboBox, SIGNAL(activated(int)),
+                pagesWidget, SLOT(setCurrentIndex(int)));
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(horizontalLayout);
     mainLayout->addStretch(1);
     mainLayout->addSpacing(12);
     mainLayout->addLayout(buttonsLayout);
+    mainLayout->addWidget(pageComboBox);
     setLayout(mainLayout);
 
     setWindowTitle(tr("myAirCoach Application"));
@@ -47,8 +59,15 @@ ConfigDialog::ConfigDialog()
 
 void ConfigDialog::createIcons()
 {
+    QListWidgetItem *mainMenuButton = new QListWidgetItem(contentsWidget);
+    mainMenuButton->setIcon(QIcon(":/images/update.png"));
+    mainMenuButton->setText(tr("Main Menu"));
+    mainMenuButton->setTextAlignment(Qt::AlignHCenter);
+    mainMenuButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+
     QListWidgetItem *personalProfileButton = new QListWidgetItem(contentsWidget);
-    personalProfileButton->setIcon(QIcon(":/images/config.png"));
+    personalProfileButton->setIcon(QIcon(":/images/update.png"));
     personalProfileButton->setText(tr("Personal Profile"));
     personalProfileButton->setTextAlignment(Qt::AlignHCenter);
     personalProfileButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
@@ -87,5 +106,7 @@ void ConfigDialog::changePage(QListWidgetItem *current, QListWidgetItem *previou
     if (!current)
         current = previous;
 
+
     pagesWidget->setCurrentIndex(contentsWidget->row(current));
 }
+

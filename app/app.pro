@@ -21,7 +21,8 @@ SOURCES  += main.cpp \
             waveform.cpp \
             wavfile.cpp \
     configdialog.cpp \
-    pages.cpp
+    pages.cpp \
+    receiver.cpp
 
 HEADERS  += engine.h \
             frequencyspectrum.h \
@@ -38,7 +39,8 @@ HEADERS  += engine.h \
             waveform.h \
             wavfile.h \
     configdialog.h \
-    pages.h
+    pages.h \
+    receiver.h
 
 fftreal_dir = ../3rdparty/fftreal
 
@@ -88,4 +90,25 @@ macx {
 
 DISTFILES += \
     qml/ParticalView.qml \
-    qml/main.qml
+    qml/main.qml \
+    qml/Help.qml \
+    qml/MainMenu.qml \
+    qml/MenuIconLive.qml \
+    qml/MicrophoneBreathMonitoring.qml \
+    qml/MyPage.qml \
+    qml/PersonaleDoctor.qml \
+    qml/PersonalProfile.qml \
+    qml/SensorsBreathMonitoring.qml \
+    qml/content/Button.qml \
+    qml/content/CheckBox.qml \
+    qml/content/StockChart.qml \
+    qml/content/StockInfo.qml \
+    qml/content/StockListModel.qml \
+    qml/content/StockListView.qml \
+    qml/content/StockModel.qml \
+    qml/content/StockSettingsPanel.qml \
+    qml/content/StockView.qml \
+    qml/content/images/icon-left-arrow.png \
+    qml/content/images/wheel.png \
+    qml/content/images/wheel-touch.png \
+    qml/Button.qml

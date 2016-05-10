@@ -1,7 +1,78 @@
 #include <QtWidgets>
+#include <QQuickView>
+#include <QGroupBox>
 
 #include "pages.h"
 #include "mainwidget.h"
+#include "configdialog.h"
+
+MainMenuPage::MainMenuPage(QWidget *parent)
+    : QWidget(parent)
+{
+    /*view = new QDeclarativeView(this);
+    view->rootContext()->setContextProperty("MainMenuPage",this);    //this
+    view->setSource(QUrl("main.qml"));
+
+   // QQuickView *view = new QQuickView();
+    QWidget *container = QWidget::createWindowContainer(view, this);
+
+    container->setMinimumSize(200, 200);
+    container->setMaximumSize(300, 300);
+    container->setFocusPolicy(Qt::TabFocus);
+
+   // view->setSource(QUrl("qrc:/qml/main.qml"));*/
+
+    QPushButton *startUpdateButton1 = new QPushButton(tr("Start update1"));
+    QPushButton *startUpdateButton2 = new QPushButton(tr("Start update2"));
+    QPushButton *startUpdateButton3 = new QPushButton(tr("Start update3"));
+    QPushButton *startUpdateButton4 = new QPushButton(tr("Start update4"));
+    QPushButton *startUpdateButton5= new QPushButton(tr("Start update5"));
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(startUpdateButton1);
+    mainLayout->addWidget(startUpdateButton2);
+    mainLayout->addWidget(startUpdateButton3);
+    mainLayout->addWidget(startUpdateButton4);
+    mainLayout->addWidget(startUpdateButton5);
+
+    /*QComboBox *pageComboBox1 = new QComboBox;
+        pageComboBox1->addItem(tr("Page 1"));
+        pageComboBox1->addItem(tr("Page 2"));
+        pageComboBox1->addItem(tr("Page 3"));
+        pageComboBox1->addItem(tr("Page 4"));
+        pageComboBox1->addItem(tr("Page 5"));
+        pageComboBox1->addItem(tr("Page 6"));
+        connect(pageComboBox1, SIGNAL(activated(int)),
+                pagesWidget, SLOT(setCurrentIndex(int)));*/
+      //connect(pageComboBox, SIGNAL(activated(int)), dialog.pagesWidget, SLOT(setCurrentIndex(int)));
+    /*connect(startUpdateButton1,
+            SIGNAL(clicked(bool)),
+            this, SLOT(changePage(QListWidgetItem*,QListWidgetItem*)));
+    connect(startUpdateButton2,
+            SIGNAL(clicked(bool)),
+            this, SLOT(changePage(QListWidgetItem*,QListWidgetItem*)));
+    connect(startUpdateButton3,
+            SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),
+            this, SLOT(changePage(QListWidgetItem*,QListWidgetItem*)));
+    connect(startUpdateButton4,
+            SIGNAL(clicked(bool)),
+            this, SLOT(changePage(QListWidgetItem*,QListWidgetItem*)));
+            */
+    //connect(startUpdateButton5,
+      //      SIGNAL(clicked(bool)),
+        //    this, SLOT(changePage(QListWidgetItem*,helpButton)));
+  //  connect(startUpdateButton5,
+    //        SIGNAL(clicked(bool)),
+      //      ConfigDialog, SLOT(changePage(helpButton, helpButton)));
+   // contentsWidget,
+     //           SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),
+       //         this, SLOT(changePage(QListWidgetItem*,QListWidgetItem*)
+    //mainLayout->addWidget(container);
+   // mainLayout->addWidget(buttonPanelLayout);
+    mainLayout->addStretch(1);
+    setLayout(mainLayout);
+}
+
 
 
 PersonalProfilePage::PersonalProfilePage(QWidget *parent)
@@ -158,7 +229,21 @@ HelpPage::HelpPage(QWidget *parent)
     hitsSpinBox->setMaximum(100);
     hitsSpinBox->setSingleStep(10);
 
+    view = new QDeclarativeView(this);
+    view->rootContext()->setContextProperty("MainMenuPage",this);    //this
+    view->setSource(QUrl("main.qml"));
+
+   // QQuickView *view = new QQuickView();
+    QWidget *container = QWidget::createWindowContainer(view, this);
+
+    container->setMinimumSize(200, 200);
+    container->setMaximumSize(300, 300);
+    container->setFocusPolicy(Qt::TabFocus);
+
+   // view->setSource(QUrl("qrc:/qml/main.qml"));
+
     QPushButton *startQueryButton = new QPushButton(tr("Start query"));
+     connect(startQueryButton, SIGNAL (clicked()), this, SLOT (handleButton()));
 
     QGridLayout *packagesLayout = new QGridLayout;
     packagesLayout->addWidget(nameLabel, 0, 0);
@@ -172,8 +257,13 @@ HelpPage::HelpPage(QWidget *parent)
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(packagesGroup);
+    mainLayout->addWidget(container);
     mainLayout->addSpacing(12);
     mainLayout->addWidget(startQueryButton);
     mainLayout->addStretch(1);
     setLayout(mainLayout);
+}
+
+void HelpPage::handleButton(){
+    dynamic_cast<QStackedWidget*>(parent())->setCurrentIndex(3);
 }

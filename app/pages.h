@@ -3,6 +3,26 @@
 
 #include <QWidget>
 
+enum { NumGridRows = 3, NumButtons = 4 };
+
+
+
+class QAction;
+class QDialogButtonBox;
+class QGroupBox;
+class QLabel;
+class QLineEdit;
+class QMenu;
+class QMenuBar;
+class QPushButton;
+class QTextEdit;
+
+class MainMenuPage : public QWidget
+{
+public:
+    MainMenuPage(QWidget *parent = 0);
+};
+
 class PersonalProfilePage : public QWidget
 {
 public:
@@ -31,6 +51,10 @@ class HelpPage : public QWidget
 {
 public:
     HelpPage(QWidget *parent = 0);
+private:
+    QDeclarativeView *view;
+private slots:
+    void handleButton();
 };
 
 #endif

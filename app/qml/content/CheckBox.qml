@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2015 The Qt Company Ltd.
+** Copyright (C) 2012 Research In Motion.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the examples of the Qt Toolkit.
@@ -38,65 +38,40 @@
 **
 ****************************************************************************/
 
-#include "mainwidget.h"
-#include <QApplication>
-#include <QQuickView>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include <QApplication>
-#include "receiver.h"
-#include "configdialog.h"
+import QtQuick 2.0
 
-int main(int argc, char *argv[])
-{
-    Q_INIT_RESOURCE(spectrum);
-
-    QApplication app(argc, argv);
-   /* QQmlApplicationEngine engine;
-
-    Receiver receiver;
-
-    QQmlContext* ctx = engine.rootContext();
-    ctx->setContextProperty("receiver", &receiver);
-    engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
-
-    receiver.sendToQml(43);
-    */
-    app.setApplicationDisplayName("myAirCoach");
-    ConfigDialog dialog;
-    return dialog.exec();
+Item {
+    id: button
+    property bool buttonEnabled: true
+    width: 30
+    height: 30
+    x: 5
+    MouseArea {
+        id: mouse
+        anchors.fill: parent
+        onClicked: {
+            if (buttonEnabled)
+                buttonEnabled = false;
+            else
+                buttonEnabled = true;
+        }
+    }
+    Rectangle {
+        id: checkbox
+        width: 30
+        height: 30
+        anchors.left: parent.left
+        border.color: "#999999"
+        border.width: 1
+        antialiasing: true
+        radius: 2
+        color: "transparent"
+        Rectangle {
+            anchors.fill: parent
+            anchors.margins: 5
+            antialiasing: true
+            radius: 1
+            color: mouse.pressed || buttonEnabled ? "#999999" : "transparent"
+        }
+    }
 }
-/*
-int main(int argc, char *argv[])
-{
-    QApplication app(argc, argv);
-    app.setApplicationName("Qt Multimedia spectrum analyzer");
-
-    //    MainWidget w;
-    //    w.setMinimumSize(QSize(900,700));
-
-    //    w.show();
-
-    QWidget *mainView = new QWidget();
-    MainWidget *v = new MainWidget();
-    v->setMinimumSize(QSize(600,700));
-    QQuickView *visualArea = new QQuickView();
-    QVBoxLayout *vlayout = new QVBoxLayout();
-    QHBoxLayout *hlayout = new QHBoxLayout();
-    QWidget *visualAreaContainer = QWidget::createWindowContainer(visualArea);
-    visualAreaContainer->setMinimumSize(QSize(100,100));
-    visualArea->setSource(QUrl("qrc:/qml/main.qml"));
-    hlayout->addWidget(visualAreaContainer);
-    hlayout->addWidget(v);
-   // vlayout->addWidget(v);
-    vlayout->addLayout(hlayout);
-    //layout->addWidget(visualAreaContainer);
-    mainView->setLayout(vlayout);
-    mainView->show();
-
-    return app.exec();
-}
-*/
