@@ -43,6 +43,7 @@ ConfigDialog::ConfigDialog()
         pageComboBox->addItem(tr("Page 4"));
         pageComboBox->addItem(tr("Page 5"));
         pageComboBox->addItem(tr("Page 6"));
+        pageComboBox->addItem(tr("Page 7"));
         connect(pageComboBox, SIGNAL(activated(int)),
                 pagesWidget, SLOT(setCurrentIndex(int)));
 

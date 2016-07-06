@@ -19,8 +19,18 @@ class QTextEdit;
 
 class MainMenuPage : public QWidget
 {
+    Q_OBJECT
 public:
     MainMenuPage(QWidget *parent = 0);
+public slots:
+    void joystick_moved(double x, double y);
+    void handleButton1();
+    void handleButton2();
+    void handleButton3();
+    void handleButton4();
+    void handleButton5();
+    void handleButton6();
+    void handleButton7();
 };
 
 class PersonalProfilePage : public QWidget
@@ -49,12 +59,13 @@ public:
 
 class HelpPage : public QWidget
 {
+   Q_OBJECT
 public:
     HelpPage(QWidget *parent = 0);
 private:
-    QDeclarativeView *view;
+    //QDeclarativeView *view;
 private slots:
-    void handleButton();
+    void handlesButton();
 };
 
 #endif

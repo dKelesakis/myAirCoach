@@ -12,21 +12,59 @@ MainMenuPage::MainMenuPage(QWidget *parent)
     /*view = new QDeclarativeView(this);
     view->rootContext()->setContextProperty("MainMenuPage",this);    //this
     view->setSource(QUrl("main.qml"));
+*/
+    QQuickView *view = new QQuickView();
 
-   // QQuickView *view = new QQuickView();
+    /* NB: We load the QML from a .qrc file becuase the Qt build step
+     * that packages the final .app on Mac forgets to add the QML
+     * if you reference it directly
+     */
+    view->setSource(QUrl("main.qml"));
+
+    /* Enable transparent background on the QQuickView
+     * Note that this currently does not work on Windows
+     */
+#ifndef _WIN32
+    view->setClearBeforeRendering(true);
+    view->setColor(QColor(Qt::transparent));
+#endif
+
+    // Attach to the 'mouse moved' signal
+    QQuickItem *root = view->rootObject();
+   /* connect(
+        root,
+        SIGNAL(joystick_moved(double, double)),
+        this,
+        SLOT(joystick_moved(double, double))
+    );*/
     QWidget *container = QWidget::createWindowContainer(view, this);
 
     container->setMinimumSize(200, 200);
     container->setMaximumSize(300, 300);
     container->setFocusPolicy(Qt::TabFocus);
 
-   // view->setSource(QUrl("qrc:/qml/main.qml"));*/
 
-    QPushButton *startUpdateButton1 = new QPushButton(tr("Start update1"));
-    QPushButton *startUpdateButton2 = new QPushButton(tr("Start update2"));
-    QPushButton *startUpdateButton3 = new QPushButton(tr("Start update3"));
-    QPushButton *startUpdateButton4 = new QPushButton(tr("Start update4"));
-    QPushButton *startUpdateButton5= new QPushButton(tr("Start update5"));
+    QPushButton *startUpdateButton1 = new QPushButton(tr("Personal Profile"));
+    QPushButton *startUpdateButton2 = new QPushButton(tr("Personal e-Doctor"));
+    QPushButton *startUpdateButton3 = new QPushButton(tr("Microphone Breath Monitoring"));
+    QPushButton *startUpdateButton4 = new QPushButton(tr("Sensors Breath Monitoring"));
+    QPushButton *startUpdateButton5= new QPushButton(tr("Asthma-pedia"));
+    QPushButton *startUpdateButton6= new QPushButton(tr("Asthma-connect"));
+    QPushButton *startUpdateButton7= new QPushButton(tr("Help"));
+    int a=1;
+    int b=2;
+    int c=3;
+    int d=4;
+            int e=5;
+    int f=6;
+            int g=8;
+    //connect(startUpdateButton1, SIGNAL (clicked()), pagesWidget, SLOT (handleButton1()));
+    connect(startUpdateButton2, SIGNAL (clicked()), this, SLOT (handleButton2()));
+    connect(startUpdateButton3, SIGNAL (clicked()), this, SLOT (handleButton3()));
+    connect(startUpdateButton4, SIGNAL (clicked()), this, SLOT (handleButton4()));
+    connect(startUpdateButton5, SIGNAL (clicked()), this, SLOT (handleButton5()));
+    connect(startUpdateButton6, SIGNAL (clicked()), this, SLOT (handleButton6()));
+    connect(startUpdateButton7, SIGNAL (clicked()), this, SLOT (handleButton7()));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(startUpdateButton1);
@@ -34,6 +72,8 @@ MainMenuPage::MainMenuPage(QWidget *parent)
     mainLayout->addWidget(startUpdateButton3);
     mainLayout->addWidget(startUpdateButton4);
     mainLayout->addWidget(startUpdateButton5);
+    mainLayout->addWidget(startUpdateButton6);
+    mainLayout->addWidget(startUpdateButton7);
 
     /*QComboBox *pageComboBox1 = new QComboBox;
         pageComboBox1->addItem(tr("Page 1"));
@@ -67,12 +107,39 @@ MainMenuPage::MainMenuPage(QWidget *parent)
    // contentsWidget,
      //           SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),
        //         this, SLOT(changePage(QListWidgetItem*,QListWidgetItem*)
-    //mainLayout->addWidget(container);
+    mainLayout->addWidget(container);
    // mainLayout->addWidget(buttonPanelLayout);
     mainLayout->addStretch(1);
     setLayout(mainLayout);
 }
+void MainMenuPage::handleButton1(){
+    dynamic_cast<QStackedWidget*>(parent())->setCurrentIndex(1);
+}
+void MainMenuPage::handleButton2(){
+    dynamic_cast<QStackedWidget*>(parent())->setCurrentIndex(2);
+}
+void MainMenuPage::handleButton3(){
+    dynamic_cast<QStackedWidget*>(parent())->setCurrentIndex(3);
+}
+void MainMenuPage::handleButton4(){
+    dynamic_cast<QStackedWidget*>(parent())->setCurrentIndex(4);
+}
+void MainMenuPage::handleButton5(){
+    dynamic_cast<QStackedWidget*>(parent())->setCurrentIndex(5);
+}
+void MainMenuPage::handleButton6(){
+    dynamic_cast<QStackedWidget*>(parent())->setCurrentIndex(6);
+}
+void MainMenuPage::handleButton7(){
+    dynamic_cast<QStackedWidget*>(parent())->setCurrentIndex(7);
+}
+void MainMenuPage::joystick_moved(double, double){
+    dynamic_cast<QStackedWidget*>(parent())->setCurrentIndex(4);
+}
 
+void HelpPage::handlesButton(){
+    dynamic_cast<QStackedWidget*>(parent())->setCurrentIndex(1);
+}
 
 
 PersonalProfilePage::PersonalProfilePage(QWidget *parent)
@@ -229,7 +296,7 @@ HelpPage::HelpPage(QWidget *parent)
     hitsSpinBox->setMaximum(100);
     hitsSpinBox->setSingleStep(10);
 
-    view = new QDeclarativeView(this);
+  /* view = new QDeclarativeView(this);
     view->rootContext()->setContextProperty("MainMenuPage",this);    //this
     view->setSource(QUrl("main.qml"));
 
@@ -239,11 +306,11 @@ HelpPage::HelpPage(QWidget *parent)
     container->setMinimumSize(200, 200);
     container->setMaximumSize(300, 300);
     container->setFocusPolicy(Qt::TabFocus);
-
+*/
    // view->setSource(QUrl("qrc:/qml/main.qml"));
 
     QPushButton *startQueryButton = new QPushButton(tr("Start query"));
-     connect(startQueryButton, SIGNAL (clicked()), this, SLOT (handleButton()));
+     connect(startQueryButton, SIGNAL (clicked()), this, SLOT (handlesButton()));
 
     QGridLayout *packagesLayout = new QGridLayout;
     packagesLayout->addWidget(nameLabel, 0, 0);
@@ -255,15 +322,45 @@ HelpPage::HelpPage(QWidget *parent)
     packagesLayout->addWidget(hitsSpinBox, 4, 0, 1, 2);
     packagesGroup->setLayout(packagesLayout);
 
+   /// QQuickView *view = new QQuickView();
+
+    /* NB: We load the QML from a .qrc file becuase the Qt build step
+     * that packages the final .app on Mac forgets to add the QML
+     * if you reference it directly
+     */
+  //  view->setSource(QUrl("qrc:/main.qml"));
+
+    /* Enable transparent background on the QQuickView
+     * Note that this currently does not work on Windows
+     */
+#ifndef _WIN32
+    view->setClearBeforeRendering(true);
+    view->setColor(QColor(Qt::transparent));
+#endif
+
+    // Attach to the 'mouse moved' signal
+   // QQuickItem *root = view->rootObject();
+   /* connect(
+        root,
+        SIGNAL(clicked(bool)),
+        this,
+        SLOT(handleButton3())
+    );
+
+    // Create a container widget for the QQuickView
+    QWidget *container = QWidget::createWindowContainer(view, this);
+    container->setMinimumSize(160, 160);
+    container->setMaximumSize(160, 160);
+    container->setFocusPolicy(Qt::TabFocus);
+    mainLayout->addWidget(container);
+
+*/
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(packagesGroup);
-    mainLayout->addWidget(container);
+    //mainLayout->addWidget(container);
     mainLayout->addSpacing(12);
     mainLayout->addWidget(startQueryButton);
     mainLayout->addStretch(1);
     setLayout(mainLayout);
 }
 
-void HelpPage::handleButton(){
-    dynamic_cast<QStackedWidget*>(parent())->setCurrentIndex(3);
-}
